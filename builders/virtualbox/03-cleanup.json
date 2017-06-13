@@ -4,7 +4,7 @@
         "image_name": "cleanup",
         "os_name": "",
         "source_path": "",
-        "intermediate_output_directory_base": "."
+        "intermediate_output_directory_base": ""
     },
     "builders": [
         {

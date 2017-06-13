@@ -56,7 +56,7 @@
         "os_name": "",
         "source_path": "",
         "image_name": "pkg-vagrant",
-        "intermediate_output_directory_base": ".",
-        "vagrant_box_output_directory": "."
+        "intermediate_output_directory_base": "",
+        "vagrant_box_output_directory": ""
     }
 }

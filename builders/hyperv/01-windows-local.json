@@ -153,7 +153,7 @@
         "iso_url": "",
         "guest_os_type": "",
         "install_vbox_tools": "",
-        "intermediate_output_directory_base": ".",
-        "vagrant_box_output_directory": "."
+        "intermediate_output_directory_base": "",
+        "vagrant_box_output_directory": ""
     }
 }

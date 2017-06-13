@@ -140,6 +140,6 @@
         "headless": "true",
         "source_path": "",
         "image_name": "updates_wmf5",
-        "intermediate_output_directory_base": "."
+        "intermediate_output_directory_base": ""
     }
 }

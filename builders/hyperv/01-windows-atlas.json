@@ -165,6 +165,6 @@
         "iso_checksum": "",
         "iso_url": "",
         "os_name": "",
-        "intermediate_output_directory_base": "."
+        "intermediate_output_directory_base": ""
     }
 }

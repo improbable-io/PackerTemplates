@@ -68,6 +68,6 @@
         "image_name": "atlas-upload",
         "os_name": "",
         "source_path": "",
-        "intermediate_output_directory_base": "."
+        "intermediate_output_directory_base": ""
     }
 }

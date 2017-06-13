@@ -60,6 +60,6 @@
     "iso_url": "",
     "guest_os_type": "",
     "install_vbox_tools": "",
-    "intermediate_output_directory_base": "."
+    "intermediate_output_directory_base": ""
   }
 }
