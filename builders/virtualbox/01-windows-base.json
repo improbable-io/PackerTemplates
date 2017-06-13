@@ -22,7 +22,7 @@
           "2"
         ]
       ],
-      "output_directory": "./output-{{ user `os_name` }}-base/",
+      "output_directory": "{{user `intermediate_output_directory_base`}}/output-{{ user `os_name` }}-base/",
       "vm_name": "{{ user `os_name` }}-base",
       "guest_additions_mode": "attach",
       "guest_os_type": "{{ user `guest_os_type` }}",
@@ -59,6 +59,7 @@
     "iso_checksum": "",
     "iso_url": "",
     "guest_os_type": "",
-    "install_vbox_tools": ""
+    "install_vbox_tools": "",
+    "intermediate_output_directory_base": "."
   }
 }

@@ -30,7 +30,7 @@
             "winrm_timeout": "12h",
             "shutdown_command": "C:/Windows/packer/PackerShutdown.bat",
             "shutdown_timeout": "1h",
-            "output_directory": "./output-{{user `os_name`}}-{{user `image_name`}}/",
+            "output_directory": "{{user `intermediate_output_directory_base`}}/output-{{user `os_name`}}-{{user `image_name`}}/",
             "vm_name": "{{user `os_name`}}-{{user `image_name`}}",
             "guest_additions_mode": "disable"
         }
@@ -46,7 +46,7 @@
             {
                 "type": "vagrant",
                 "keep_input_artifact": false,
-                "output": "{{user `os_name`}}-wmf5-nocm-{{.Provider}}.box",
+                "output": "{{user `vagrant_box_output_directory`}}/{{user `os_name`}}-wmf5-nocm-{{.Provider}}.box",
                 "vagrantfile_template": "vagrantfile-windows.template"
             }
         ]
@@ -55,6 +55,8 @@
         "headless": "true",
         "os_name": "",
         "source_path": "",
-        "image_name": "pkg-vagrant"
+        "image_name": "pkg-vagrant",
+        "intermediate_output_directory_base": ".",
+        "vagrant_box_output_directory": "."
     }
 }

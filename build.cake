@@ -96,7 +96,7 @@ public ProcessSettings RunPacker(bool install_vbox_tools, OSToBuild os, string s
     source_path_var = "";
   }
 
-  string packer_cmd = String.Format("-var \"install_vbox_tools={0}\" -var \"os_name={1}\" -var \"iso_checksum={2}\" -var \"iso_url={3}\" -var \"guest_os_type={4}\" -var \"full_os_name={5}\" -var \"atlas_username={6}\" -var \"atlas_version={7}\" {8} {9}",
+  string packer_cmd = String.Format("-var-file=default-variable-values.json -var \"install_vbox_tools={0}\" -var \"os_name={1}\" -var \"iso_checksum={2}\" -var \"iso_url={3}\" -var \"guest_os_type={4}\" -var \"full_os_name={5}\" -var \"atlas_username={6}\" -var \"atlas_version={7}\" {8} {9}",
     vbox_tools,
     os.osName,
     os.isoChecksum,

@@ -30,7 +30,7 @@
             "winrm_timeout": "12h",
             "shutdown_command": "C:/Windows/packer/PackerShutdown.bat",
             "shutdown_timeout": "1h",
-            "output_directory": "./output-{{user `os_name`}}-{{user `image_name`}}/",
+            "output_directory": "{{user `intermediate_output_directory_base`}}/output-{{user `os_name`}}-{{user `image_name`}}/",
             "vm_name": "{{user `os_name`}}-{{user `image_name`}}",
             "guest_additions_mode": "disable"
         }
@@ -67,6 +67,7 @@
         "headless": "true",
         "image_name": "atlas-upload",
         "os_name": "",
-        "source_path": ""
+        "source_path": "",
+        "intermediate_output_directory_base": "."
     }
 }

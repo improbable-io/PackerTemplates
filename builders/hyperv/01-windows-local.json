@@ -2,7 +2,7 @@
     "builders": [
         {
             "type": "hyperv-iso",
-            "output_directory": "./output-{{ user `os_name` }}-base-hyperv/",
+            "output_directory": "{{user `intermediate_output_directory_base`}}/output-{{ user `os_name` }}-base-hyperv/",
             "vm_name": "{{ user `os_name` }}-base",
             "iso_url": "{{ user `iso_url` }}",
             "iso_checksum": "{{ user `iso_checksum` }}",
@@ -142,7 +142,7 @@
             {
                 "type": "vagrant",
                 "keep_input_artifact": false,
-                "output": "{{user `os_name`}}-wmf5-nocm-{{.Provider}}.box",
+                "output": "{{user `vagrant_box_output_directory`}}/{{user `os_name`}}-wmf5-nocm-{{.Provider}}.box",
                 "vagrantfile_template": "vagrantfile-windows.template"
             }
         ]
@@ -152,6 +152,8 @@
         "iso_checksum": "",
         "iso_url": "",
         "guest_os_type": "",
-        "install_vbox_tools": ""
+        "install_vbox_tools": "",
+        "intermediate_output_directory_base": ".",
+        "vagrant_box_output_directory": "."
     }
 }

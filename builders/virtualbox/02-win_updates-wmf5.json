@@ -30,7 +30,7 @@
             "winrm_timeout": "12h",
             "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
             "shutdown_timeout": "1h",
-            "output_directory": "./output-{{user `os_name`}}-{{ user `image_name`}}/",
+            "output_directory": "{{user `intermediate_output_directory_base`}}/output-{{user `os_name`}}-{{ user `image_name`}}/",
             "vm_name": "{{user `os_name`}}-{{ user `image_name`}}",
             "guest_additions_mode": "disable"
         }
@@ -139,6 +139,7 @@
         "os_name": "",
         "headless": "true",
         "source_path": "",
-        "image_name": "updates_wmf5"
+        "image_name": "updates_wmf5",
+        "intermediate_output_directory_base": "."
     }
 }

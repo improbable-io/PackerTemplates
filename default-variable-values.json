@@ -1,0 +1,9 @@
+{
+  "guest_os_type": "",
+  "install_vbox_tools": "",
+  "iso_checksum": "",
+  "iso_url": "",
+  "os_name": "",
+  "intermediate_output_directory_base": ".",
+  "vagrant_box_output_directory": "."
+}
