@@ -1,7 +1,7 @@
 #addin "Cake.Yaml"
 #addin "Newtonsoft.Json"
 var target = Argument("target", "virtualbox-local");
-var output_to = Argument("output_to", ".");
+var output_to = Argument("output-to", ".");
 var os = Argument("os","Windows2016StdCore");
 var atlas_username = Argument("atlas_username","MattHodge");
 var atlas_version = Argument("atlas_version","0.0.1");
