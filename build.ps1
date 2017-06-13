@@ -20,6 +20,8 @@ and execute your Cake build script with the parameters you provide.
 The build script to execute.
 .PARAMETER Target
 The build script target to run.
+.PARAMETER OutputDirectoryBasePath
+The output directory to put intermediate artifacts
 .PARAMETER Configuration
 The build configuration to use.
 .PARAMETER Verbosity
@@ -45,6 +47,7 @@ http://cakebuild.net
 Param(
     [string]$Script = "build.cake",
     [string]$Target = "virtualbox-local",
+    [string]$OutputDirectoryBasePath = ".",
     [ValidateSet("Release", "Debug")]
     [string]$Configuration = "Release",
     [ValidateSet("Quiet", "Minimal", "Normal", "Verbose", "Diagnostic")]
@@ -186,6 +189,11 @@ if (!(Test-Path $CAKE_EXE)) {
     Throw "Could not find Cake.exe at $CAKE_EXE"
 }
 
+# Make sure the OutputDirectoryBasePath exists
+if (!(Test-Path $OutputDirectoryBasePath)) {
+    new-item $OutputDirectoryBasePath -type directory
+}
+
 if ($Target -like 'hyperv*')
 {
     # check if hyper-v installed
@@ -209,5 +217,5 @@ if ($Target -like 'hyperv*')
 
 # Start Cake
 Write-Host "Running build script..."
-Invoke-Expression "& `"$CAKE_EXE`" `"$Script`" -target=`"$Target`" -configuration=`"$Configuration`" -verbosity=`"$Verbosity`" $UseMono $UseDryRun $UseExperimental $ScriptArgs"
+Invoke-Expression "& `"$CAKE_EXE`" `"$Script`" -target=`"$Target`" -output_to=`"$OutputDirectoryBasePath`" -configuration=`"$Configuration`" -verbosity=`"$Verbosity`" $UseMono $UseDryRun $UseExperimental $ScriptArgs"
 exit $LASTEXITCODE
