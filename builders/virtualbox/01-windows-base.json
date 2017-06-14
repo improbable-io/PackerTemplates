@@ -1,6 +1,20 @@
 {
   "builders": [
     {
+      "communicator": "winrm",
+      "floppy_files": [
+        "answer_files/{{ user `os_name` }}/Autounattend.xml",
+        "floppy/winrm.ps1"
+      ],
+      "guest_additions_mode": "attach",
+      "guest_os_type": "{{ user `guest_os_type` }}",
+      "headless": "{{ user `headless` }}",
+      "iso_checksum": "{{ user `iso_checksum` }}",
+      "iso_checksum_type": "sha1",
+      "iso_url": "{{ user `iso_url` }}",
+      "output_directory": "./output-{{ user `os_name` }}-base/",
+      "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
+      "shutdown_timeout": "1h",
       "type": "virtualbox-iso",
       "vboxmanage": [
         [
@@ -22,43 +36,29 @@
           "2"
         ]
       ],
-      "output_directory": "./output-{{ user `os_name` }}-base/",
       "vm_name": "{{ user `os_name` }}-base",
-      "guest_additions_mode": "attach",
-      "guest_os_type": "{{ user `guest_os_type` }}",
-      "headless": "{{ user `headless` }}",
-      "iso_url": "{{ user `iso_url` }}",
-      "iso_checksum": "{{ user `iso_checksum` }}",
-      "iso_checksum_type": "sha1",
-      "communicator": "winrm",
-      "winrm_username": "vagrant",
       "winrm_password": "vagrant",
       "winrm_timeout": "12h",
-      "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
-      "shutdown_timeout": "1h",
-      "floppy_files": [
-        "answer_files/{{ user `os_name` }}/Autounattend.xml",
-        "floppy/winrm.ps1"
-      ]
+      "winrm_username": "vagrant"
     }
   ],
   "provisioners": [
     {
-      "type": "powershell",
-      "script": "scripts/install_oracle_guest_additions.ps1",
-      "elevated_user": "vagrant",
       "elevated_password": "vagrant",
+      "elevated_user": "vagrant",
       "environment_vars": [
         "install_vbox_tools={{user `install_vbox_tools`}}"
-      ]
+      ],
+      "script": "scripts/install_oracle_guest_additions.ps1",
+      "type": "powershell"
     }
   ],
   "variables": {
-    "os_name": "",
+    "guest_os_type": "",
     "headless": "true",
+    "install_vbox_tools": "",
     "iso_checksum": "",
     "iso_url": "",
-    "guest_os_type": "",
-    "install_vbox_tools": ""
+    "os_name": ""
   }
 }

@@ -1,72 +1,72 @@
 {
-    "builders": [
-        {
-            "type": "virtualbox-ovf",
-            "vboxmanage": [
-                [
-                    "modifyvm",
-                    "{{.Name}}",
-                    "--memory",
-                    "2048"
-                ],
-                [
-                    "modifyvm",
-                    "{{.Name}}",
-                    "--vram",
-                    "48"
-                ],
-                [
-                    "modifyvm",
-                    "{{.Name}}",
-                    "--cpus",
-                    "2"
-                ]
-            ],
-            "source_path": "{{user `source_path`}}",
-            "headless": "{{ user `headless` }}",
-            "communicator": "winrm",
-            "winrm_username": "vagrant",
-            "winrm_password": "vagrant",
-            "winrm_timeout": "12h",
-            "shutdown_command": "C:/Windows/packer/PackerShutdown.bat",
-            "shutdown_timeout": "1h",
-            "output_directory": "./output-{{user `os_name`}}-{{user `image_name`}}/",
-            "vm_name": "{{user `os_name`}}-{{user `image_name`}}",
-            "guest_additions_mode": "disable"
-        }
-    ],
-    "provisioners": [
-        {
-            "type": "powershell",
-            "script": "scripts/save_shutdown_command.ps1"
-        }
-    ],
-    "post-processors": [
+  "builders": [
+    {
+      "communicator": "winrm",
+      "guest_additions_mode": "disable",
+      "headless": "{{ user `headless` }}",
+      "output_directory": "./output-{{user `os_name`}}-{{user `image_name`}}/",
+      "shutdown_command": "C:/Windows/packer/PackerShutdown.bat",
+      "shutdown_timeout": "1h",
+      "source_path": "{{user `source_path`}}",
+      "type": "virtualbox-ovf",
+      "vboxmanage": [
         [
-            {
-                "type": "vagrant",
-                "keep_input_artifact": false,
-                "output": "{{user `os_name`}}-wmf5-nocm-{{.Provider}}.box",
-                "vagrantfile_template": "vagrantfile-windows.template"
-            },
-            {
-                "type": "atlas",
-                "artifact": "{{user `atlas_username`}}/{{user `full_os_name`}}-WMF5-NOCM",
-                "artifact_type": "vagrant.box",
-                "metadata": {
-                    "provider": "virtualbox",
-                    "version": "{{user `atlas_version`}}"
-                }
-            }
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "2048"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--vram",
+          "48"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--cpus",
+          "2"
         ]
-    ],
-    "variables": {
-        "atlas_username": "",
-        "atlas_version": "",
-        "full_os_name": "",
-        "headless": "true",
-        "image_name": "atlas-upload",
-        "os_name": "",
-        "source_path": ""
+      ],
+      "vm_name": "{{user `os_name`}}-{{user `image_name`}}",
+      "winrm_password": "vagrant",
+      "winrm_timeout": "12h",
+      "winrm_username": "vagrant"
     }
+  ],
+  "post-processors": [
+    [
+      {
+        "keep_input_artifact": false,
+        "output": "{{user `os_name`}}-wmf5-nocm-{{.Provider}}.box",
+        "type": "vagrant",
+        "vagrantfile_template": "vagrantfile-windows.template"
+      },
+      {
+        "artifact": "{{user `atlas_username`}}/{{user `full_os_name`}}-WMF5-NOCM",
+        "artifact_type": "vagrant.box",
+        "metadata": {
+          "provider": "virtualbox",
+          "version": "{{user `atlas_version`}}"
+        },
+        "type": "atlas"
+      }
+    ]
+  ],
+  "provisioners": [
+    {
+      "script": "scripts/save_shutdown_command.ps1",
+      "type": "powershell"
+    }
+  ],
+  "variables": {
+    "atlas_username": "",
+    "atlas_version": "",
+    "full_os_name": "",
+    "headless": "true",
+    "image_name": "atlas-upload",
+    "os_name": "",
+    "source_path": ""
+  }
 }
