@@ -1,0 +1,54 @@
+{
+  "builders": [
+    {
+      "account_file": "{{user `gce_account_file`}}",
+      "communicator": "winrm",
+      "disk_size": "{{user `disk_size_gb`}}",
+      "disk_type": "pd-ssd",
+      "image_family": "{{user `gce_output_image_family`}}",
+      "image_name": "packer-{{timestamp}}",
+      "metadata": {
+        "windows-startup-script-cmd": "winrm quickconfig -quiet & net user /add packer_user & net localgroup administrators packer_user /add & winrm set winrm/config/service/auth @{Basic=\"true\"}"
+      },
+      "project_id": "{{user `gce_project_id`}}",
+      "region": "{{user `cloud_region`}}",
+      "scopes": [],
+      "source_image_family": "{{user `gce_source_image_family`}}",
+      "tags": [
+        "packer",
+        "windows"
+      ],
+      "type": "googlecompute",
+      "winrm_insecure": true,
+      "winrm_timeout": "300m",
+      "winrm_use_ssl": true,
+      "winrm_username": "packer_user",
+      "zone": "{{user `cloud_zone`}}"
+    }
+  ],
+  "provisioners": [
+    {
+      "environment_vars": [
+        "PROVISIONING_PASSWORD={{user `provisioning_password`}}"
+      ],
+      "script": "scripts/create_provisioning_user.ps1",
+      "type": "powershell"
+    }
+  ],
+  "variables": {
+    "cloud_region": "europe-west1",
+    "cloud_zone": "europe-west1-d",
+    "disk_size_gb": "60",
+    "gce_account_file": "c:/users/pete/gcloud/corporate-8848196652af.json",
+    "gce_output_image_family": "windows-2012-r2-01-base",
+    "gce_project_id": "artful-reactor-121111",
+    "gce_source_image_family": "windows-2012-r2",
+    "guest_os_type": "",
+    "headless": "true",
+    "install_vbox_tools": "",
+    "iso_checksum": "",
+    "iso_url": "",
+    "os_name": "",
+    "provisioning_password": "Abcd1234!"
+  }
+}

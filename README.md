@@ -26,6 +26,7 @@ Interested in some best practices when using Packer with Windows? Check out [my 
 The supported builds are:
 * VirtualBox
 * Hyper-V
+* [GCE](./README_GCE.md)
 
 ### Supported Operating Systems
 
