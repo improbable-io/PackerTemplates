@@ -39,6 +39,6 @@
     "gce_image_family": "windows-2012-r2",
     "gce_project_id": "",
     "input_image_name": "02-updates-wmf5",
-    "output_image_name": "04-cleanup"
+    "output_image_name": "50-cleanup"
   }
 }
