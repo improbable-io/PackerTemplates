@@ -1,8 +1,7 @@
-$wuInstallExe = Join-Path "$($env:windir)\SYSTEM32" 'WUInstallAMD64.exe'
-
-if (!(Test-Path -Path $wuInstallExe))
-{
-    Invoke-WebRequest -UseBasicParsing -Uri 'https://dl.dropboxusercontent.com/u/727435/Tools/WUInstallAMD64.exe' -OutFile $wuInstallExe
+if (-not(get-command Get-WUList -ErrorAction Ignore)) {
+  choco install --yes pswindowsupdate
+} else {
+  write-output "PSWindowsUpdates already installed"
 }
-
-C:\WINDOWS\SYSTEM32\WUInstallAMD64.exe /install /autoaccepteula /silent
+Get-WUInstall -IgnoreUserInput -AcceptAll -Verbose
+Get-WURebootStatus
