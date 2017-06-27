@@ -7,13 +7,10 @@
       "disk_type": "pd-ssd",
       "image_family": "{{user `gce_image_family`}}-{{user `output_image_name`}}",
       "image_name": "packer-{{user `output_image_name`}}-{{timestamp}}",
-      "metadata": {
-        "windows-startup-script-cmd": "winrm quickconfig -quiet & net user /add packer_user & net localgroup administrators packer_user /add & winrm set winrm/config/service/auth @{Basic=\"true\"}"
-      },
       "project_id": "{{user `gce_project_id`}}",
       "region": "{{user `cloud_region`}}",
       "scopes": [],
-      "source_image_family": "{{user `gce_image_family`}}",
+      "source_image_family": "{{user `gce_image_family`}}-{{user `input_image_name`}}",
       "tags": [
         "packer",
         "windows"
@@ -28,10 +25,9 @@
   ],
   "provisioners": [
     {
-      "environment_vars": [
-        "PROVISIONING_PASSWORD={{user `provisioning_password`}}"
-      ],
-      "script": "scripts/create_provisioning_user.ps1",
+      "elevated_password": "vagrant",
+      "elevated_user": "vagrant",
+      "script": "scripts/clean_and_scrub.ps1",
       "type": "powershell"
     }
   ],
@@ -42,7 +38,7 @@
     "gce_account_file": "",
     "gce_image_family": "windows-2012-r2",
     "gce_project_id": "",
-    "output_image_name": "01-base",
-    "provisioning_password": ""
+    "input_image_name": "02-updates-wmf5",
+    "output_image_name": "04-cleanup"
   }
 }

@@ -1,0 +1,124 @@
+{
+  "builders": [
+    {
+      "account_file": "{{user `gce_account_file`}}",
+      "communicator": "winrm",
+      "disk_size": "{{user `disk_size_gb`}}",
+      "disk_type": "pd-ssd",
+      "image_family": "{{user `gce_image_family`}}-{{user `output_image_name`}}",
+      "image_name": "packer-{{user `output_image_name`}}-{{timestamp}}",
+      "project_id": "{{user `gce_project_id`}}",
+      "region": "{{user `cloud_region`}}",
+      "scopes": [],
+      "source_image_family": "{{user `gce_image_family`}}-{{user `input_image_name`}}",
+      "tags": [
+        "packer",
+        "windows"
+      ],
+      "type": "googlecompute",
+      "winrm_insecure": true,
+      "winrm_timeout": "5m",
+      "winrm_use_ssl": true,
+      "winrm_username": "packer_user",
+      "zone": "{{user `cloud_zone`}}"
+    }
+  ],
+  "provisioners": [
+    {
+      "inline": [
+        "$env:chocolateyUseWindowsCompression = 'false'",
+        "iwr https://chocolatey.org/install.ps1 -UseBasicParsing | iex"
+      ],
+      "type": "powershell"
+    },
+    {
+      "script": "scripts/install_windows_updates.ps1",
+      "type": "powershell",
+      "valid_exit_codes": [
+        0,
+        1,
+        2,
+        3,
+        5,
+        10,
+        15
+      ]
+    },
+    {
+      "restart_timeout": "1h",
+      "type": "windows-restart"
+    },
+    {
+      "script": "scripts/install_windows_updates.ps1",
+      "type": "powershell",
+      "valid_exit_codes": [
+        0,
+        1,
+        2,
+        3,
+        5,
+        10,
+        15
+      ]
+    },
+    {
+      "restart_timeout": "1h",
+      "type": "windows-restart"
+    },
+    {
+      "script": "scripts/install_windows_updates.ps1",
+      "type": "powershell",
+      "valid_exit_codes": [
+        0,
+        1,
+        2,
+        3,
+        5,
+        10,
+        15
+      ]
+    },
+    {
+      "restart_timeout": "1h",
+      "type": "windows-restart"
+    },
+    {
+      "script": "scripts/install_ps5.ps1",
+      "type": "powershell",
+      "valid_exit_codes": [
+        0,
+        3010
+      ]
+    },
+    {
+      "restart_timeout": "1h",
+      "type": "windows-restart"
+    },
+    {
+      "script": "scripts/install_windows_updates.ps1",
+      "type": "powershell",
+      "valid_exit_codes": [
+        0,
+        2,
+        3,
+        5,
+        10,
+        15
+      ]
+    },
+    {
+      "restart_timeout": "1h",
+      "type": "windows-restart"
+    }
+  ],
+  "variables": {
+    "cloud_region": "europe-west1",
+    "cloud_zone": "europe-west1-d",
+    "disk_size_gb": "60",
+    "gce_account_file": "",
+    "gce_image_family": "windows-2012-r2",
+    "gce_project_id": "",
+    "input_image_name": "01-base",
+    "output_image_name": "02-updates-wmf5"
+  }
+}
