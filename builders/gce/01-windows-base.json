@@ -13,7 +13,7 @@
       "project_id": "{{user `gce_project_id`}}",
       "region": "{{user `cloud_region`}}",
       "scopes": [],
-      "source_image_family": "{{user `gce_source_image_family`}}",
+      "source_image_family": "packer-{{user `gce_source_image_family`}}",
       "tags": [
         "packer",
         "windows"
